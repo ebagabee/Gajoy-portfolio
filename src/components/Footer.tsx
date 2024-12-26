@@ -1,23 +1,8 @@
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
-import { Instagram, Linkedin, Mail } from "lucide-react";
 
 const Footer = () => {
   const { t } = useTranslation();
-
-  const socialLinks = [
-    {
-      icon: Instagram,
-      href: "https://instagram.com/gajoytech",
-      label: "Instagram",
-    },
-    {
-      icon: Linkedin,
-      href: "https://www.linkedin.com/company/gajoy-tech",
-      label: "LinkedIn",
-    },
-    { icon: Mail, href: "mailto:gajoycontato@gmail.com", label: "Email" },
-  ];
 
   return (
     <footer className="py-12 border-t">
@@ -43,20 +28,7 @@ const Footer = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             viewport={{ once: true }}
             className="flex space-x-6"
-          >
-            {socialLinks.map((social) => (
-              <a
-                key={social.label}
-                href={social.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-primary transition-colors"
-                aria-label={social.label}
-              >
-                <social.icon className="w-6 h-6" />
-              </a>
-            ))}
-          </motion.div>
+          ></motion.div>
         </div>
       </div>
     </footer>
