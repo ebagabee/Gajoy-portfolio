@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
-import { Github, Instagram, Linkedin, Mail } from "lucide-react";
+import { Instagram, Linkedin, Mail } from "lucide-react";
 
 const Footer = () => {
   const { t } = useTranslation();
@@ -44,7 +44,7 @@ const Footer = () => {
             viewport={{ once: true }}
             className="flex space-x-6"
           >
-            {socialLinks.map((social, index) => (
+            {socialLinks.map((social) => (
               <a
                 key={social.label}
                 href={social.href}
