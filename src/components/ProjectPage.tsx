@@ -1,4 +1,4 @@
-import { useParams, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 import { Badge } from "./ui/badge";
@@ -6,13 +6,7 @@ import { Card, CardContent } from "./ui/card";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, A11y } from 'swiper/modules';
 
-// Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-
 const ProjectPage = () => {
-    const { id } = useParams<{ id: string }>();
     const { t } = useTranslation();
     const location = useLocation();
     const project = location.state;
