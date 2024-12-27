@@ -6,6 +6,15 @@ import { Card, CardContent } from "./ui/card";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, A11y } from "swiper/modules";
 
+// @ts-expect-error - Module declaration issue
+import 'swiper/css';
+// @ts-expect-error - Module declaration issue
+import 'swiper/css/navigation';
+// @ts-expect-error - Module declaration issue
+import 'swiper/css/pagination';
+
+
+
 // Define an interface for the project structure
 interface Project {
   title: string;
