@@ -1,0 +1,12 @@
+.swiper-button-next,
+.swiper-button-prev {
+    color: theme('colors.primary.DEFAULT');
+}
+
+.swiper-pagination-bullet-active {
+    background-color: theme('colors.primary.DEFAULT');
+}
+
+.swiper-container {
+    padding-bottom: 40px;
+}
