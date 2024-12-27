@@ -6,10 +6,20 @@ import { Card, CardContent } from "./ui/card";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, A11y } from 'swiper/modules';
 
+// Define an interface for the project structure
+interface Project {
+  title: string;
+  images: string[];
+  description: string;
+  features: string[];
+  stack: string[];
+  techDetails: string;
+}
+
 const ProjectPage = () => {
     const { t } = useTranslation();
     const location = useLocation();
-    const project = location.state;
+    const project = location.state as Project;
 
     if (!project) {
         return <div>Project not found</div>;
@@ -41,7 +51,7 @@ const ProjectPage = () => {
                     pagination={{ clickable: true }}
                     className="rounded-lg shadow-md"
                 >
-                    {project.images.map((image, index) => (
+                    {project.images.map((image: string, index: number) => (
                         <SwiperSlide key={index}>
                             <img
                                 src={image}
@@ -65,7 +75,7 @@ const ProjectPage = () => {
                         <p className="text-lg mb-4">{project.description}</p>
                         <h3 className="text-xl font-semibold mb-2">{t("projects.features")}</h3>
                         <ul className="list-disc list-inside space-y-2">
-                            {project.features.map((feature, index) => (
+                            {project.features.map((feature: string, index: number) => (
                                 <li key={index}>{feature}</li>
                             ))}
                         </ul>
@@ -76,7 +86,7 @@ const ProjectPage = () => {
                     <CardContent className="p-6">
                         <h2 className="text-2xl font-semibold mb-4">{t("projects.techStack")}</h2>
                         <div className="flex flex-wrap gap-2 mb-6">
-                            {project.stack.map((tech) => (
+                            {project.stack.map((tech: string) => (
                                 <Badge key={tech} variant="secondary" className="text-lg py-1 px-3">
                                     {tech}
                                 </Badge>
@@ -92,4 +102,3 @@ const ProjectPage = () => {
 };
 
 export default ProjectPage;
-
