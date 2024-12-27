@@ -11,7 +11,7 @@ import Services from "./components/Services";
 import Footer from "./components/Footer";
 
 // Import the custom Swiper styles
-import './styles/swiper-custom.css';
+import "./styles/swiper-custom.css";
 
 function App() {
   const [currentLanguage, setCurrentLanguage] = useState("en");
@@ -23,33 +23,41 @@ function App() {
   };
 
   return (
-      <I18nextProvider i18n={i18n}>
-        <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-          <Router>
-            <div className="min-h-screen bg-background text-foreground">
-              <Header
-                  toggleLanguage={toggleLanguage}
-                  currentLanguage={currentLanguage}
-              />
-              <main>
-                <Routes>
-                  <Route path="/" element={
+    <I18nextProvider i18n={i18n}>
+      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+        <Router>
+          <div className="min-h-screen bg-background text-foreground">
+            <Header
+              toggleLanguage={toggleLanguage}
+              currentLanguage={currentLanguage}
+            />
+            <main>
+              <Routes>
+                <Route
+                  path="/"
+                  element={
                     <>
-                      <About />
-                      <Projects />
-                      <Services />
+                      <section id="about">
+                        <About />
+                      </section>
+                      <section id="projects">
+                        <Projects />
+                      </section>
+                      <section id="services">
+                        <Services />
+                      </section>
                     </>
-                  } />
-                  <Route path="/project/:id" element={<ProjectPage />} />
-                </Routes>
-              </main>
-              <Footer />
-            </div>
-          </Router>
-        </ThemeProvider>
-      </I18nextProvider>
+                  }
+                />
+                <Route path="/project/:id" element={<ProjectPage />} />
+              </Routes>
+            </main>
+            <Footer />
+          </div>
+        </Router>
+      </ThemeProvider>
+    </I18nextProvider>
   );
 }
 
 export default App;
-
