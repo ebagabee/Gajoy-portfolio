@@ -106,16 +106,16 @@ const Projects = () => {
                             viewport={{once: true}}
                         >
                             <Card
-                                className="h-full group hover:shadow-lg transition-all duration-300 border-2 hover:border-primary/50 flex flex-col justify-between">
+                                className="h-full group hover:shadow-lg transition-all duration-300 border-2 hover:border-primary/50">
                                 <CardHeader>
                                     <img src={project.image} alt={project.title}
-                                         className="w-full h-48 object-cover rounded-t-lg"/>
-                                    <CardTitle className="text-xl group-hover:text-primary transition-colors mt-4">
+                                         className="w-full h-48 object-cover rounded-t-lg mb-2"/>
+                                    <CardTitle className="text-xl group-hover:text-primary transition-colors mt-10">
                                         {project.title}
                                     </CardTitle>
                                 </CardHeader>
                                 <CardContent className="space-y-4">
-                                    <CardDescription className="text-base">
+                                    <CardDescription className="text-base -mt-4">
                                         {project.description}
                                     </CardDescription>
                                     <div className="flex flex-wrap gap-2">
