@@ -21,11 +21,11 @@ const Projects = () => {
             description: t("projects.project1.description"),
             stack: ["React", "TailwindCSS"],
             techDetails: "React, Node.js, MongoDB, Express",
-            image: "/src/assets/rood1.png",
+            image: "images/rood1.png",
             images: [
-                "/src/assets/rood1.png",
-                "/src/assets/rood1.png",
-                "/src/assets/rood1.png",
+                "images/rood1.png",
+                "images/rood1.png",
+                "images/rood1.png",
             ],
             features: [
                 t("projects.project1.feature1"),
@@ -37,11 +37,11 @@ const Projects = () => {
             description: t("projects.project2.description"),
             stack: ["PHP", "JavaScript", "Stripe"],
             techDetails: "PHP, JavaScript, Stripe",
-            image: "/src/assets/atip1.png",
+            image: "images/atip1.png",
             images: [
-                "/src/assets/atip1.png",
-                "/src/assets/atip1.png",
-                "/src/assets/atip1.png",
+                "images/atip1.png",
+                "images/atip1.png",
+                "images/atip1.png",
             ],
             features: [
                 t("projects.project2.feature1"),
@@ -53,11 +53,11 @@ const Projects = () => {
             description: t("projects.project3.description"),
             stack: ["HTML", "CSS", "JavaScript"],
             techDetails: "HTML, JavaScript, CSS",
-            image: "/src/assets/next1.png",
+            image: "images/next1.png",
             images: [
-                "/src/assets/next1.png",
-                "/src/assets/next1.png",
-                "/src/assets/next1.png",
+                "images/next1.png",
+                "images/next1.png",
+                "images/next1.png",
             ],
             features: [
                 t("projects.project3.feature1"),
@@ -69,11 +69,11 @@ const Projects = () => {
             description: t("projects.project4.description"),
             stack: ["React", "CSS", "TypeScript"],
             techDetails: "React, CSS, TypeScript",
-            image: "/src/assets/food1.png",
+            image: "images/food1.png",
             images: [
-                "/src/assets/food2.png",
-                "/src/assets/food3.png",
-                "/src/assets/food3.png",
+                "images/food2.png",
+                "images/food3.png",
+                "images/food3.png",
             ],
             features: [
                 t("projects.project4.feature1"),
