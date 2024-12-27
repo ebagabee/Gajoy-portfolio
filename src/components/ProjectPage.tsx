@@ -7,13 +7,11 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, A11y } from "swiper/modules";
 
 // @ts-expect-error - Module declaration issue
-import 'swiper/css';
+import "swiper/css";
 // @ts-expect-error - Module declaration issue
-import 'swiper/css/navigation';
+import "swiper/css/navigation";
 // @ts-expect-error - Module declaration issue
-import 'swiper/css/pagination';
-
-
+import "swiper/css/pagination";
 
 // Define an interface for the project structure
 interface Project {
@@ -65,14 +63,17 @@ const ProjectPage = () => {
           slidesPerView={1}
           navigation
           pagination={{ clickable: true }}
-          className="rounded-lg shadow-md"
+          className="rounded-lg shadow-md max-w-3xl mx-auto"
         >
           {project.images.map((image: string, index: number) => (
-            <SwiperSlide key={index}>
+            <SwiperSlide
+              key={index}
+              className="flex items-center justify-center"
+            >
               <img
                 src={getImagePath(image)}
                 alt={`${project.title} - Image ${index + 1}`}
-                className="w-full h-[400px] object-cover"
+                className="w-full h-auto max-h-[500px] object-contain"
               />
             </SwiperSlide>
           ))}
