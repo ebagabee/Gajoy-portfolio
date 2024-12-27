@@ -1,10 +1,10 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 import { ModeToggle } from "./mode-toggle";
 import { Button } from "./ui/button";
 import { Menu } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 interface HeaderProps {
   toggleLanguage: () => void;
@@ -15,10 +15,34 @@ const Header: React.FC<HeaderProps> = ({ toggleLanguage, currentLanguage }) => {
   const { t } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
-  const getHomeLink = (anchor: string) => {
-    return location.pathname === "/" ? `#${anchor}` : `/#${anchor}`;
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
   };
+
+  const handleNavigation = (sectionId: string) => {
+    if (location.pathname !== "/") {
+      navigate("/");
+      // We need to wait for the navigation to complete before scrolling
+      setTimeout(() => scrollToSection(sectionId), 100);
+    } else {
+      scrollToSection(sectionId);
+    }
+    setIsMenuOpen(false);
+  };
+
+  // This effect handles the scroll when the URL changes
+  useEffect(() => {
+    if (location.hash) {
+      // Remove the '#' from the hash
+      const sectionId = location.hash.slice(1);
+      scrollToSection(sectionId);
+    }
+  }, [location]);
 
   return (
     <motion.header
@@ -33,9 +57,15 @@ const Header: React.FC<HeaderProps> = ({ toggleLanguage, currentLanguage }) => {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-3xl font-bold bg-gradient-to-r from-orange-500 to-purple-600 text-transparent bg-clip-text"
+            className="text-3xl font-bold"
           >
-            Gajoy
+            <Link
+              to="/"
+              className="bg-gradient-to-r from-orange-500 to-purple-600 text-transparent bg-clip-text hover:opacity-80 transition-opacity"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Gajoy
+            </Link>
           </motion.div>
           <nav className="hidden md:flex items-center space-x-8">
             {["about", "projects", "services"].map((item, index) => (
@@ -45,12 +75,12 @@ const Header: React.FC<HeaderProps> = ({ toggleLanguage, currentLanguage }) => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.1 * (index + 1) }}
               >
-                <Link
-                  to={getHomeLink(item)}
+                <button
+                  onClick={() => handleNavigation(item)}
                   className="text-foreground/80 hover:text-primary transition-colors text-lg font-medium"
                 >
                   {t(`nav.${item}`)}
-                </Link>
+                </button>
               </motion.div>
             ))}
           </nav>
@@ -94,14 +124,13 @@ const Header: React.FC<HeaderProps> = ({ toggleLanguage, currentLanguage }) => {
             className="md:hidden py-4 space-y-4"
           >
             {["about", "projects", "services"].map((item) => (
-              <Link
+              <button
                 key={item}
-                to={getHomeLink(item)}
-                className="block text-foreground/80 hover:text-primary transition-colors px-4 py-2 text-lg"
-                onClick={() => setIsMenuOpen(false)}
+                onClick={() => handleNavigation(item)}
+                className="block text-foreground/80 hover:text-primary transition-colors px-4 py-2 text-lg w-full text-left"
               >
                 {t(`nav.${item}`)}
-              </Link>
+              </button>
             ))}
           </motion.nav>
         )}
