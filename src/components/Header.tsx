@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { motion } from 'framer-motion';
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { motion } from "framer-motion";
+import { ModeToggle } from "./mode-toggle";
+import { Button } from "./ui/button";
+import { Menu } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
 
-// Defina as props que o Header espera receber
 interface HeaderProps {
   toggleLanguage: () => void;
   currentLanguage: string;
@@ -15,81 +17,96 @@ const Header: React.FC<HeaderProps> = ({ toggleLanguage, currentLanguage }) => {
   const location = useLocation();
 
   const getHomeLink = (anchor: string) => {
-    return location.pathname === '/' ? `#${anchor}` : `/#${anchor}`;
+    return location.pathname === "/" ? `#${anchor}` : `/#${anchor}`;
   };
 
-  const navItems = [
-    { name: t('nav.home'), link: '/' },
-    { name: t('nav.about'), link: getHomeLink('about') },
-    { name: t('nav.projects'), link: getHomeLink('projects') },
-    { name: t('nav.contact'), link: getHomeLink('contact') },
-  ];
-
   return (
-    <header className="fixed w-full bg-white shadow-md z-50">
-      <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center py-4">
-          <Link to="/" className="text-2xl font-bold text-primary">
-            {t('site.name')}
-          </Link>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-6">
-            {navItems.map((item) => (
-              <Link
-                key={item.name}
-                to={item.link}
-                className="text-gray-600 hover:text-primary transition duration-300"
+    <motion.header
+      initial={{ opacity: 0, y: -50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="sticky top-0 z-50 bg-background/80 backdrop-blur-sm border-b border-border"
+    >
+      <div className="container mx-auto px-4 py-4">
+        <div className="flex justify-between items-center">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="text-3xl font-bold bg-gradient-to-r from-orange-500 to-purple-600 text-transparent bg-clip-text"
+          >
+            Gajoy
+          </motion.div>
+          <nav className="hidden md:flex items-center space-x-8">
+            {["about", "projects", "services"].map((item, index) => (
+              <motion.div
+                key={item}
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 * (index + 1) }}
               >
-                {item.name}
-              </Link>
+                <Link
+                  to={getHomeLink(item)}
+                  className="text-foreground/80 hover:text-primary transition-colors text-lg font-medium"
+                >
+                  {t(`nav.${item}`)}
+                </Link>
+              </motion.div>
             ))}
           </nav>
-
-          {/* Language Toggle */}
-          <button onClick={toggleLanguage} className="ml-4">
-            {currentLanguage === 'en' ? '🇺🇸' : '🇧🇷'}
-          </button>
-
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden text-gray-600 focus:outline-none"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            {isMenuOpen ? (
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            ) : (
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            )}
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile Navigation */}
-      <motion.nav
-        className={`md:hidden ${isMenuOpen ? 'block' : 'hidden'}`}
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: isMenuOpen ? 1 : 0, y: isMenuOpen ? 0 : -20 }}
-        transition={{ duration: 0.3 }}
-      >
-        <div className="container mx-auto px-4 py-2">
-          {navItems.map((item) => (
-            <Link
-              key={item.name}
-              to={item.link}
-              className="block py-2 text-gray-600 hover:text-primary transition duration-300"
-              onClick={() => setIsMenuOpen(false)}
+          <div className="flex items-center space-x-4">
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
             >
-              {item.name}
-            </Link>
-          ))}
+              <Button
+                onClick={toggleLanguage}
+                variant="ghost"
+                size="icon"
+                className="text-xl"
+              >
+                {currentLanguage === "en" ? "🇺🇸" : "🇧🇷"}
+              </Button>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+            >
+              <ModeToggle />
+            </motion.div>
+            <Button
+              className="md:hidden"
+              variant="ghost"
+              size="icon"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              <Menu className="h-6 w-6" />
+            </Button>
+          </div>
         </div>
-      </motion.nav>
-    </header>
+        {isMenuOpen && (
+          <motion.nav
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="md:hidden py-4 space-y-4"
+          >
+            {["about", "projects", "services"].map((item) => (
+              <Link
+                key={item}
+                to={getHomeLink(item)}
+                className="block text-foreground/80 hover:text-primary transition-colors px-4 py-2 text-lg"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {t(`nav.${item}`)}
+              </Link>
+            ))}
+          </motion.nav>
+        )}
+      </div>
+    </motion.header>
   );
 };
 
